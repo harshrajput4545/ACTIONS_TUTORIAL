@@ -17,10 +17,12 @@ jobs:
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ secrets.EC2_SERVER_IP }}
-          username: root
+          host: 13.232.54.20
+          username: ec2-user
           key: ${{ secrets.EC2_KEY }}
           script: |
+            set -e
             cd /ACTIONS_TUTORIAL
-            git pull
+            git pull origin main
             docker compose up -d --build
+            docker compose ps
